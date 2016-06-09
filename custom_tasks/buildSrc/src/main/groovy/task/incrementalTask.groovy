@@ -1,7 +1,6 @@
 package task
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.DirectoryTree
 import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
@@ -10,7 +9,6 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 
 
-// START SNIPPET incremental-task
 class IncrementalReverseTask extends DefaultTask {
 
     @Input
@@ -46,15 +44,12 @@ class IncrementalReverseTask extends DefaultTask {
             srcStream.close()
             dstStream.close()
         }
-        // END SNIPPET out-of-date-inputs
 
-        // START SNIPPET removed-inputs
-//        inputs.removed { change ->
-//            println "removed: ${change.file.name}"
-//            def targetFile = new File(outputDir, change.file.name)
-//            targetFile.delete()
-//        }
-        // END SNIPPET removed-inputs
+        inputs.removed { change ->
+           println "removed: ${change.file.name}"
+           def targetFile = new File(outputDir, change.file.name)
+           targetFile.delete()
+        }
     }
 }
 // END SNIPPET incremental-task
