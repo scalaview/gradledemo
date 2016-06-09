@@ -1,0 +1,22 @@
+apply plugin: 'groovy'
+import task.TestTask
+import task.IncrementalReverseTask
+
+// START SNIPPET reverse
+task incrementalReverse(type: IncrementalReverseTask) {
+    inputRoot = "$projectDir"
+    inputDir = fileTree(dir: 'inputs', includes: ['**/*.txt'], excludes: ["**/*.xml"])
+    outputDir = file("$buildDir/outputs")
+    inputProperty = project.properties['taskInputProperty'] ?: "original"
+}
+// END SNIPPET reverse
+
+
+// START SNIPPET reverse
+task hello(type: TestTask) {
+    // inputDir = file('inputs')
+    // outputDir = file("$buildDir/outputs")
+    // inputProperty = project.properties['taskInputProperty'] ?: "original"
+}
+// END SN
+
