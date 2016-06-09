@@ -20,10 +20,6 @@ class IncrementalReverseTask extends DefaultTask {
     @OutputDirectory
     def File outputDir
 
-    @Input
-    def inputProperty
-
-
     @TaskAction
     void execute(IncrementalTaskInputs inputs) {
         println inputs.incremental ? "CHANGED inputs considered out of date"
@@ -46,10 +42,10 @@ class IncrementalReverseTask extends DefaultTask {
         }
 
         inputs.removed { change ->
-           println "removed: ${change.file.name}"
-           def targetFile = new File(outputDir, change.file.name)
-           targetFile.delete()
+            println "removed: ${change.file.path}"
+            def targetFileName = change.file.path.replace("${inputRoot}/", "")
+            def targetFile = new File(outputDir, targetFileName)
+            if(targetFile.exists()) targetFile.delete()
         }
     }
 }
-// END SNIPPET incremental-task

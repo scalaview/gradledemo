@@ -7,7 +7,6 @@ task incrementalReverse(type: IncrementalReverseTask) {
     inputRoot = "$projectDir"
     inputDir = fileTree(dir: 'inputs', includes: ['**/*.txt'], excludes: ["**/*.xml"])
     outputDir = file("$buildDir/outputs")
-    inputProperty = project.properties['taskInputProperty'] ?: "original"
 }
 // END SNIPPET reverse
 
